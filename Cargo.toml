@@ -1,0 +1,10 @@
+[package]
+name = "tg"
+version = "0.0.1"
+authors = ["Sam Clements <sam@borntyping.co.uk>"]
+
+[dependencies]
+docopt = "^0.6.44"
+docopt_macros = "^0.6.44"
+libc = "*"
+rustc-serialize = "^0.3.1"

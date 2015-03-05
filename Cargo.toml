@@ -7,4 +7,6 @@ authors = ["Sam Clements <sam@borntyping.co.uk>"]
 docopt = "^0.6.44"
 docopt_macros = "^0.6.44"
 libc = "*"
+log = "^0.2.5"
 rustc-serialize = "^0.3.1"
+simple_logger = "^0.1.0"

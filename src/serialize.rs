@@ -1,6 +1,6 @@
 //! Load and save projects
 
-use std::collections::HashMap;
+use std::default::Default;
 use std::error::FromError;
 use std::io::{Error,Read,Write};
 use std::fs::File;
@@ -10,7 +10,7 @@ use std::path::Path;
 use rustc_serialize::json::{DecoderError,EncoderError};
 use rustc_serialize::json::{decode,encode};
 
-use super::Project;
+use super::Tg;
 
 #[derive(Debug)]
 pub enum SerialiseError {
@@ -39,21 +39,22 @@ impl FromError<EncoderError> for SerialiseError {
 
 pub type SerialiseResult<T> = Result<T, SerialiseError>;
 
-pub type Projects = HashMap<String, Project>;
-
-pub fn load(path: &Path) -> SerialiseResult<Projects> {
+pub fn load(path: &Path) -> SerialiseResult<Tg> {
     if !path.exists() {
-        return Ok(HashMap::new());
+        info!("Path {:?} does not exist, creating defaults", path);
+        return Ok(Default::default());
     } else {
+        info!("Loading projects from {:?}", path);
         let mut file = try!(File::open(path));
         let mut data = String::new();
         try!(file.read_to_string(&mut data));
         let projects = try!(decode(data.as_slice()));
         return Ok(projects);
     }
- }
+}
 
-pub fn save(projects: Projects, path: &Path) -> SerialiseResult<()> {
+pub fn save(projects: Tg, path: &Path) -> SerialiseResult<()> {
+    info!("Saving projects to {:?}", path);
     let data = try!(encode(&projects));
     let mut file = try!(File::create(path));
     try!(write!(&mut file, "{}", data));

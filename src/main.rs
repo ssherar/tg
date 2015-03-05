@@ -70,7 +70,7 @@ fn main() {
         tg.remove(args.arg_name).unwrap();
     } else if args.cmd_status {
         for (name, project) in tg.projects.iter() {
-            println!("- {:<10} {}", name, project.status());
+            println!("- {:<10} {}", name, project.status().unwrap());
         }
     } else if args.flag_version {
         println!("tg 0.0.1");

@@ -18,6 +18,10 @@ impl Project {
     pub fn new(path: String, tags: Vec<String>) -> Self {
         Project { path: realpath_string(path), tags: tags }
     }
+
+    pub fn status(&self) -> Result<String, String> {
+        unimplemented!();
+    }
 }
 
 #[derive(Debug,RustcDecodable,RustcEncodable)]
@@ -46,10 +50,6 @@ impl Tg {
         info!("Removing project {:?}", name);
         self.projects.remove(&name);
         return Ok(());
-    }
-
-    pub fn status(&self) -> Result<String, String> {
-        unimplemented!();
     }
 }
 

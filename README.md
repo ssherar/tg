@@ -1,47 +1,31 @@
-# tg
+# `tg` [![](https://img.shields.io/github/tag/borntyping/tg.svg)](https://github.com/borntyping/tg/tags) [![](https://img.shields.io/travis/borntyping/tg.svg)](https://travis-ci.org/borntyping/tg) [![](https://img.shields.io/github/issues/borntyping/tg.svg)](https://github.com/borntyping/tg/issues)
 
-```
-$ tg
-Usage: tg [options] <tag> <command> [...]
+A command line tool for managing your repositories.
 
-Show information about tagged repositories
+* [Source on GitHub](https://github.com/borntyping/tg)
+* [Packages on Crates.io](https://crates.io/crates/tg)
+* [Builds on Travis CI](https://travis-ci.org/borntyping/tg)
 
-Availible tags: @cyborg, @python, @rust
+_`tg` is in development and does not yet have many of the proposed features. Ideas and suggestions for features are welcome - create a feature request on [the issue tracker](https://github.com/borntyping/tg/issues)._
 
-Subcommands:
-    add         Add a repository to the tag
-    journal     Show commits in order for a given period
-    list        Show repository paths
-    remove      Remove a repository from the tag
-    status      Show repository statuses
+Usage
+-----
 
-Options:
-    --config    Path to a configuration file [default: ~/.tg]
-    --data      Path to tag database [default: ~/.tg-data]
-    --version   Show the version number
-    --help      Show this message
+Run `tg --help` for a list of availible subcommands.
 
-$ tg @cyborg add /home/sam/Development/borntyping/example
+Installation
+------------
 
-$ tg @cyborg journal --today
-2015-03-02 11:12 8f99b18 (cyborg) Fixed tests
-2015-03-02 11:43 5dd0d7d (cyborg-demo) Made some changes
-2015-03-02 11:58 e9d8fdc (cyborg) rustup
+Building `tg` requires Rust and Cargo to be installed. You can find instructions on installing Rust [here](http://www.rust-lang.org/install.html).
 
-$ tg @cyborg list
-- cyborg                /home/sam/Development/borntyping/cyborg
-- cyborg-demo           /home/sam/Development/borntyping/cyborg-demo
-- example               /home/sam/Development/borntyping/example
-- mutiny                /home/sam/Development/borntyping/mutiny
-- rust-psutil           /home/sam/Development/borntyping/rust-psutil
-- rust-simple_logger    /home/sam/Development/borntyping/rust-simple_logger
+Once you have Rust and Cargo availible, run `cargo build` in the root of the repository, which will create an exectuable at `./target/tg`. If you want to be able to run `tg` from any directory, symlink or copy the executable to somewhere on your `$PATH`.
 
-$ tg @cyborg remove /home/sam/Development/borntyping/example
+Licence
+-------
 
-$ tg @cyborg status
-✓ cyborg
-✓ cyborg-demo
-✗ mutiny                travis-ci build is failing
-✓ rust-psutil
-✗ rust-simple_logger    uncommitted changes
-```
+`tg` is licenced under the [MIT Licence](http://opensource.org/licenses/MIT).
+
+Authors
+-------
+
+Written by [Sam Clements](sam@borntyping.co.uk).

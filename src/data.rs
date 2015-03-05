@@ -2,6 +2,7 @@
 
 use std::collections::HashMap;
 use std::default::Default;
+use std::process::Command;
 
 use ::utils::realpath_string;
 
@@ -19,8 +20,14 @@ impl Project {
         Project { path: realpath_string(path), tags: tags }
     }
 
+    fn git(&self) -> &mut Command {
+        Command::new("git").arg("-C").arg(self.path.as_slice())
+    }
+
     pub fn status(&self) -> Result<String, String> {
-        unimplemented!();
+        let command = self.git().arg("status").arg("--porcelain");
+        let output = command.output().unwrap();
+        Ok(String::from_utf8_lossy(output.stdout.as_slice()))
     }
 }
 

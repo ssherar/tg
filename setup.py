@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='tg',
-    version='0.1.0',
+    version='0.2.0',
 
     description='A command line tool for managing your repositories',
     long_description=open('README.md').read(),

@@ -18,7 +18,8 @@ setup(
 
     install_requires=[
         'click >=3.3, <4.0',
-        'GitPython >=0.3.6, <4.0.0'
+        'GitPython >=0.3.6, <4.0.0',
+        'termcolor >=1.1.0, <2.0.0'
     ],
 
     entry_points={

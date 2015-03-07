@@ -4,28 +4,28 @@
 import os.path
 
 import click
+import termcolor
 
-import tg
-import tg.state
+from tg import __version__
+from tg.state import Tg, Project
 
 
 def checkmark(value):
-    return "✗" if bool(value) else "✓"
-
-
-def max_len(values, minimum=0):
-    return max(max(len(x) for x in values), minimum)
+    if value:
+        return termcolor.colored('✓', 'green')
+    else:
+        return termcolor.colored('✗', 'red')
 
 
 @click.group()
 @click.option(
     '--home', default=os.path.expanduser('~/.tg'), envvar='TG_HOME',
     type=click.Path(file_okay=False, readable=True, writable=True),
-    help="Path to a directory that tg will store projects in")
-@click.version_option(tg.__version__)
+    help="Path to a directory that tg will store obj in")
+@click.version_option(__version__)
 @click.pass_context
 def main(ctx, home):
-    ctx.obj = tg.state.Tg.load(home)
+    ctx.obj = Tg.load(home)
 
 
 @main.command()
@@ -33,15 +33,15 @@ def main(ctx, home):
 @click.argument('path')
 @click.pass_obj
 def add(tg, name, path):
-    tg.projects[name] = os.path.abspath(path)
+    tg.projects[name] = Project(path=os.path.abspath(path))
     tg.save()
 
 
 @main.command()
 @click.pass_obj
 def list(tg):
-    for name, path in tg.projects.items():
-        print("{}: {}".format(name, path))
+    for name, project in tg():
+        print("{}: {}".format(name, project.path))
 
 
 @main.command()
@@ -55,14 +55,7 @@ def remove(tg, name):
 @main.command()
 @click.pass_obj
 def status(tg):
-    width = max_len(tg.projects.keys(), minimum=10)
-
-    for name, repo in tg.repos():
-        statuses = []
-
-        if repo.is_dirty():
-            statuses.append("git repo is dirty")
-
-        click.echo("{status} {name:{width}}  {statuses}".format(
-            status=checkmark(statuses), name=name, width=width,
-            statuses=', '.join(statuses)))
+    for name, project in tg.display():
+        statuses = project.statuses()
+        click.echo("{} {}  {}".format(
+            checkmark(not statuses), name, ', '.join(statuses)))

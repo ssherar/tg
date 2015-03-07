@@ -53,6 +53,16 @@ def remove(tg, name):
 
 
 @main.command()
+@click.argument('old_name')
+@click.argument('new_name')
+@click.pass_obj
+def rename(tg, old_name, new_name):
+    tg.projects[new_name] = tg.projects[old_name]
+    del tg.projects[old_name]
+    tg.save()
+
+
+@main.command()
 @click.pass_obj
 def status(tg):
     for name, project in tg.display():

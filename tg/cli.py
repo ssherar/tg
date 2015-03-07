@@ -10,7 +10,7 @@ import tg.state
 
 @click.group()
 @click.option(
-    '--home', default=os.path.expanduser('~/.tg'),
+    '--home', default=os.path.expanduser('~/.tg'), envvar='TG_HOME',
     type=click.Path(file_okay=False, readable=True, writable=True),
     help="Path to a directory that tg will store projects in")
 @click.version_option(tg.__version__)

@@ -7,6 +7,7 @@ import os.path
 class Tg:
     @classmethod
     def load(cls, home):
+        home = os.path.abspath(home)
         data_path = os.path.join(home, 'data')
 
         if os.path.exists(data_path):

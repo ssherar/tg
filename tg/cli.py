@@ -18,7 +18,7 @@ def checkmark(value):
 
 @click.group()
 @click.option(
-    '--home', default=os.path.expanduser('~/.tg'), envvar='TG_HOME',
+    '--home', default=click.get_app_dir('tg'), envvar='TG_HOME',
     type=click.Path(
         file_okay=False, resolve_path=True,
         exists=True, readable=True, writable=True),

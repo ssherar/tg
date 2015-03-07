@@ -4,7 +4,6 @@
 import os.path
 
 import click
-import termcolor
 
 from tg import __version__
 from tg.state import Tg, Project
@@ -12,9 +11,9 @@ from tg.state import Tg, Project
 
 def checkmark(value):
     if value:
-        return termcolor.colored('✓', 'green')
+        return click.style('✓', fg='green')
     else:
-        return termcolor.colored('✗', 'red')
+        return click.style('✗', fg='red')
 
 
 @click.group()

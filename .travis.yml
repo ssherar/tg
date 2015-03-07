@@ -1,2 +1,2 @@
-language: rust
+language: python
 sudo: false

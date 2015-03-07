@@ -68,8 +68,8 @@ class Tg:
     def display(self, minimum=10):
         width = max([len(x) for x in self.projects.keys()] + [minimum])
 
-        for name, project in self.projects.items():
-            yield ("{:{}}".format(name, width), project)
+        for name in sorted(self.projects):
+            yield ("{:{}}".format(name, width), self.projects[name])
 
     def save(self):
         if self.home is None:

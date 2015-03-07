@@ -1,2 +1,8 @@
 language: python
+install: pip install tox
+script: tox
 sudo: false
+env:
+  - TOXENV=py27
+  - TOXENV=py34
+  - TOXENV=lint

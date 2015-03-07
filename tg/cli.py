@@ -43,7 +43,7 @@ def add(tg, path, name):
 @click.pass_obj
 def list(tg):
     for name, project in tg.display():
-        print("{}: {}".format(name, project.path))
+        print("- {}  {}".format(name, project.path))
 
 
 @main.command(help="Remove a project")

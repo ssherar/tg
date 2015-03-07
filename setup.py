@@ -16,9 +16,13 @@ setup(
         'tg'
     ],
 
+    install_requires=[
+        'click >=3.3, <4.0'
+    ],
+
     entry_points={
         'console_scripts': [
-            'tg = tg:main',
+            'tg = tg.cli:main',
         ]
     },
 

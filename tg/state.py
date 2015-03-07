@@ -3,6 +3,8 @@
 import json
 import os.path
 
+import git
+
 
 class Tg:
     @classmethod
@@ -31,3 +33,7 @@ class Tg:
 
         with open(os.path.join(self.home, 'data'), 'w') as f:
             json.dump(self.projects, f)
+
+    def repos(self):
+        for name, path in self.projects.items():
+            yield (name, git.Repo(path))

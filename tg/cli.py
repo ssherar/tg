@@ -1,3 +1,4 @@
+# coding=utf8
 """Command line interface to tg"""
 
 import os.path
@@ -6,6 +7,14 @@ import click
 
 import tg
 import tg.state
+
+
+def checkmark(value):
+    return "✗" if bool(value) else "✓"
+
+
+def max_len(values, minimum=0):
+    return max(max(len(x) for x in values), minimum)
 
 
 @click.group()
@@ -46,5 +55,14 @@ def remove(tg, name):
 @main.command()
 @click.pass_obj
 def status(tg):
-    for name, path in tg.projects.items():
-        print("{}: {}".format(name, path))
+    width = max_len(tg.projects.keys(), minimum=10)
+
+    for name, repo in tg.repos():
+        statuses = []
+
+        if repo.is_dirty():
+            statuses.append("git repo is dirty")
+
+        click.echo("{status} {name:{width}}  {statuses}".format(
+            status=checkmark(statuses), name=name, width=width,
+            statuses=', '.join(statuses)))

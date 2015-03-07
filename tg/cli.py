@@ -28,7 +28,7 @@ def main(ctx, home):
     ctx.obj = Tg.load(home)
 
 
-@main.command()
+@main.command(help="Add a new project")
 @click.argument('name')
 @click.argument('path')
 @click.pass_obj
@@ -37,14 +37,14 @@ def add(tg, name, path):
     tg.save()
 
 
-@main.command()
+@main.command(help="List all projects and their paths")
 @click.pass_obj
 def list(tg):
     for name, project in tg():
         print("{}: {}".format(name, project.path))
 
 
-@main.command()
+@main.command(help="Remove a project")
 @click.argument('name')
 @click.pass_obj
 def remove(tg, name):
@@ -52,7 +52,7 @@ def remove(tg, name):
     tg.save()
 
 
-@main.command()
+@main.command(help="Rename a project")
 @click.argument('old_name')
 @click.argument('new_name')
 @click.pass_obj
@@ -62,7 +62,7 @@ def rename(tg, old_name, new_name):
     tg.save()
 
 
-@main.command()
+@main.command(help="Show the status of each project")
 @click.pass_obj
 def status(tg):
     for name, project in tg.display():

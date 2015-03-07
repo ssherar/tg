@@ -21,7 +21,7 @@ def checkmark(value):
     '--home', default=click.get_app_dir('tg'), envvar='TG_HOME',
     type=click.Path(
         file_okay=False, resolve_path=True,
-        exists=True, readable=True, writable=True),
+        exists=False, readable=True, writable=True),
     help="Path to a directory that tg will store obj in")
 @click.version_option(__version__)
 @click.pass_context

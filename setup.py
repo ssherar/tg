@@ -5,7 +5,7 @@ setup(
     version='0.1.0',
 
     description='A command line tool for managing your repositories',
-    long_description=open('README.rst').read(),
+    long_description=open('README.md').read(),
 
     author='Sam Clements',
     author_email='sam@borntyping.co.uk',
@@ -25,7 +25,6 @@ setup(
             'tg = tg.cli:main',
         ]
     },
-
 
     classifiers=[
         'Development Status :: 3 - Alpha',

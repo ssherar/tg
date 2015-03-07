@@ -9,7 +9,9 @@ import pytest
 from tg.cli import main
 
 PROJECTS = {
-    'example': '/example/path'
+    'example': {
+        'path': '/example/path'
+    }
 }
 
 
@@ -36,7 +38,7 @@ def data(runner):
 
 
 def test_add(invoke, data):
-    invoke(['add', 'PROJECT', '.'])
+    invoke(['add', '.', 'PROJECT'])
     assert 'PROJECT' in data()
 
 

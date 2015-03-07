@@ -72,8 +72,6 @@ class Tg:
             yield ("{:{}}".format(name, width), project)
 
     def save(self):
-        print(self.projects)
-
         if self.home is None:
             raise Exception("No home directory set")
 

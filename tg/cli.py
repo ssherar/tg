@@ -20,7 +20,9 @@ def checkmark(value):
 @click.group()
 @click.option(
     '--home', default=os.path.expanduser('~/.tg'), envvar='TG_HOME',
-    type=click.Path(file_okay=False, readable=True, writable=True),
+    type=click.Path(
+        file_okay=False, resolve_path=True,
+        exists=True, readable=True, writable=True),
     help="Path to a directory that tg will store obj in")
 @click.version_option(__version__)
 @click.pass_context
@@ -29,11 +31,12 @@ def main(ctx, home):
 
 
 @main.command(help="Add a new project")
-@click.argument('name')
-@click.argument('path')
+@click.argument('path', type=click.Path(
+    file_okay=False, exists=True, readable=True, resolve_path=True))
+@click.argument('name', required=False)
 @click.pass_obj
-def add(tg, name, path):
-    tg.projects[name] = Project(path=os.path.abspath(path))
+def add(tg, path, name):
+    tg.projects[name or os.path.basename(path)] = Project(path=path)
     tg.save()
 
 

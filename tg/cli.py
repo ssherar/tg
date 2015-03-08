@@ -39,11 +39,12 @@ def add(tg, path, name):
     tg.save()
 
 
-@main.command(help="View the past 5 commits on the projects")
+@main.command(help="View the past X commits on the projects (default: 5)")
+@click.option("--limit", type=int, default=5)
 @click.pass_obj
-def journal(tg):
+def journal(tg, limit):
     for name, project in tg.display():
-        for time, message in project.logs():
+        for time, message in project.logs(limit):
             click.echo("{}: {}  {}".format(
                 name, time, message))
 

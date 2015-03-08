@@ -39,12 +39,19 @@ def add(tg, path, name):
     tg.save()
 
 
+@main.command(help="View the past 5 commits on the projects")
+@click.pass_obj
+def journal(tg):
+    for name, project in tg.display():
+        for time, message in project.logs():
+            click.echo("{}: {}  {}".format(
+                name, time, message))
+
 @main.command(help="List all projects and their paths")
 @click.pass_obj
 def list(tg):
     for name, project in tg.display():
         print("- {}  {}".format(name, project.path))
-
 
 @main.command(help="Remove a project")
 @click.argument('name')

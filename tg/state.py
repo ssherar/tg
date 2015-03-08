@@ -2,6 +2,7 @@
 
 import json
 import os.path
+import datetime
 
 import git
 
@@ -28,6 +29,13 @@ class Project:
     @property
     def repo(self):
         return git.Repo(self.path)
+
+    def logs(self):
+        log_path = git.refs.RefLog.path(self.repo.head)
+        logs = git.refs.RefLog.from_file(log_path)[-5:]
+
+        for log in reversed(logs):
+            yield datetime.datetime.fromtimestamp(log.time[0]), log.message
 
     def statuses(self):
         statuses = []

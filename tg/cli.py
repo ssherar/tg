@@ -53,11 +53,13 @@ def journal(tg, limit):
         click.echo("{}: {}  {}".format(
             name, time, message))
 
+
 @main.command(help="List all projects and their paths")
 @click.pass_obj
 def list(tg):
     for name, project in tg.display():
         print("- {}  {}".format(name, project.path))
+
 
 @main.command(help="Remove a project")
 @click.argument('name')

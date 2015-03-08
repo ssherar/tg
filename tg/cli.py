@@ -43,10 +43,15 @@ def add(tg, path, name):
 @click.option("--limit", type=int, default=5)
 @click.pass_obj
 def journal(tg, limit):
+    log_messages = []
     for name, project in tg.display():
         for time, message in project.logs(limit):
-            click.echo("{}: {}  {}".format(
-                name, time, message))
+            log_messages.append((name, time, message))
+
+    for name, time, message in sorted(log_messages, key=lambda a: a[1],
+                                      reverse=True):
+        click.echo("{}: {}  {}".format(
+            name, time, message))
 
 @main.command(help="List all projects and their paths")
 @click.pass_obj
